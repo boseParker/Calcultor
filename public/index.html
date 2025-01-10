@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>calcultor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+        }
+        .container{
+            background-color: rgb(65, 63, 65);
+            width: 40vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+             padding: 30px;
+             border-radius: 10px;
+            flex-wrap: wrap;
+            margin-top: 100px;
+            
+        }
+        .input{
+            width: 100%;
+            background-color: whitesmoke;
+            display: grid;
+            grid-template-areas:'inputBox inputBox inputBox inputBox'
+                                'inputPg inputPg inputPg inputPg ';
+            border-radius: 10px;
+            outline: none;
+            border: none;
+            margin-bottom: 10px;
+
+        }
+        .input input{
+            grid-area: inputBox;
+            outline: none;
+            height: 50px;
+            border: none;
+            padding: 0%;
+            border-radius: 10px;
+            background-color: whitesmoke;
+            font-size: xx-large;
+            width: 100%;
+            
+        }
+        .input input:focus{
+            width: 90%;
+           padding: 10px;
+        }
+        .input p{
+            grid-area: inputPg;
+            
+        }
+        .numbers .btn{
+            padding: 10px;
+            font-size: 22px;
+            margin:5px ;
+            box-shadow: 4px 4px black;
+            border-radius: 5px;
+            border: none;
+           cursor: pointer;
+           background-color: whitesmoke;
+        }
+        .numbers button:hover{
+          outline: 2px groove rgb(34, 203, 241);
+        }
+        .numbers{
+            width: 100%;
+            display: grid;
+            grid-template-areas: 'button-Ac button-cancel button-cancel button-division'
+                                  'button-9 button-8 button-7 button-multiple'
+                                  'button-4 button-5 button-6 button-subtract'
+                                  'button-3 button-2 button-1 button-add'
+                                  'button-0 button-point button-equal button-equal'  ;
+                               
+        }
+        .numbers .ac{
+            grid-area: button-Ac;
+        }
+        .numbers .cancel{
+            grid-area: button-cancel;
+        }
+        .numbers .division{
+            grid-area: button-division;
+        }
+        .numbers .seven{
+            grid-area: button-7;
+        }
+        .numbers .eight{
+            grid-area: button-8;
+        }
+        .numbers .nine{
+            grid-area: button-9;
+        }
+        .numbers .multiply{
+            grid-area: button-multiple;
+        }
+        .numbers .four{
+            grid-area: button-4;
+        }
+        .numbers .five{
+            grid-area: button-5;
+        }
+        .numbers .six{
+            grid-area: button-6;
+        }
+        .numbers .subtract{
+            grid-area: button-subtract;
+        }
+        .numbers .one{
+            grid-area: button-1;
+        }
+        .numbers .two{
+            grid-area: button-2;
+        }
+        .numbers .three{
+            grid-area: button-3;
+        }
+
+        .numbers .addition{
+            grid-area: button-add;
+        }
+        .numbers .zero{
+            grid-area: button-0;
+        }
+        .numbers .point{
+            grid-area: button-point;
+        }
+        .numbers .equal{
+            grid-area: button-equal;
+            background-color: rgb(199, 147, 51);
+          
+        }
+        @media screen and (max-width:426px) {
+           .numbers .btn{
+            padding: 10px 5px;
+            margin: 10px;
+           }
+          
+           .container{
+            width: 100vw;
+           }
+           .input{
+            width:80vw;
+           }
+           .numbers{
+            width: 80vw;
+           }
+          
+        }
+       
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="input">
+            <input type="text" id="input-values" disabled>
+            <p id="output-content"></p>
+        </div>
+        <div class="numbers">
+            <button class="btn ac">AC</button>
+            <button class="btn cancel"><i class="fa-solid fa-delete-left"></i></button>
+            <button class="btn division" onclick="DisplayValue('/')"><i class="fa-solid fa-divide"></i></button>
+            <button class="btn seven" onclick="DisplayValue('7')">7</button>
+            <button class="btn eight" onclick="DisplayValue('8')">8</button>
+            <button class="btn nine" onclick="DisplayValue('9')">9</button>
+            <button class="btn multiply" onclick="DisplayValue('*')"><i class="fa-solid fa-xmark"></i></button>
+            <button class="btn four" onclick="DisplayValue('4')">4</button>
+            <button class="btn five" onclick="DisplayValue('5')">5</button>
+            <button class="btn six" onclick="DisplayValue('6')">6</button>
+            <button class="btn subtract" onclick="DisplayValue('-')">-</button>
+            <button class="btn one" onclick="DisplayValue('1')">1</button>
+            <button class="btn two" onclick="DisplayValue('2')">2</button>
+            <button class="btn three" onclick="DisplayValue('3')">3</button>
+            <button class="btn addition" onclick="DisplayValue('+')">+</button>
+            <button class="btn zero" onclick="DisplayValue('0')">0</button>
+            <button class="btn point" onclick="DisplayValue('.')">.</button>
+            <button class="btn equal" onclick="calcuclate()">=</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+    <script>
+        var display=document.getElementById("input-values")
+           function DisplayValue(value) {
+            display.value += value;
+}
+
+   document.querySelector(".ac").addEventListener('click',function(){
+    display.value="";
+})
+
+document.querySelector(".cancel").addEventListener('click',function(){
+    let total= [...display.value]
+       display.value = display.value.slice(0, -1);
+   
+})
+
+function calcuclate(){
+   inputBox=input.value
+
+numbers=inputBox.split(/[+\-*/]/).map(Number)
+operators=inputBox.match(/[+\-*/]/g);
+
+value=operators[0]
+a=numbers[0]
+b=numbers[1]
+
+    switch(value){
+    case '+':
+        display.value=a+b
+        break;
+    case '-':
+    display.value=a-b
+        break;
+    case '*':
+    display.value=a*b
+        break;
+    case '/':
+    display.value=a/b
+        break;
+    
+  
+       
+    }
+    
+   
+}
+
+    </script>
+</body>
+</html>
